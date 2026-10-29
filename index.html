@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>یک روز خاص ✨</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> یک یادگاری برای یک روز خاص</div>
+      <h1>برای <span>تو</span> ✨</h1>
+      <p class="subtitle">بعضی لحظه‌ها ارزش این را دارند که برای همیشه نگه‌شان داریم.</p>
+    </header>
+
+    <!-- متن دلخواهت را فقط داخل تگ p زیر جایگزین کن -->
+    <section class="glass-card message-card">
+      <div class="card-heading">
+        <span class="heading-icon">✉</span>
+        <div>
+          <h2>چند کلمه از ته دل</h2>
+          <p>حرف‌هایی که دوست دارم بدانی...</p>
+        </div>
+      </div>
+      <div class="message-content">
+        <p>
+          اینجا متن دلخواهت را بنویس. می‌توانی این نوشته را به یک پیام تبریک،
+          یک خاطره‌ی قشنگ یا هر حرفی که دوست داری تبدیل کنی.
+          برای اضافه یا کم کردن متن، فقط همین بخش را در فایل HTML ویرایش کن.
+        </p>
+      </div>
+      <div class="card-footer"><span>با کلی حس خوب</span><span class="sparkle">✦</span></div>
+    </section>
+
+    <!-- نام فایل ویدئوت را در src قرار بده؛ مثلا videos/my-video.mp4 -->
+    <section class="glass-card video-card">
+      <div class="card-heading">
+        <span class="heading-icon">▶</span>
+        <div>
+          <h2>لحظه‌های ماندگار</h2>
+          <p>یک ویدئو برای مرور خاطره‌ها</p>
+        </div>
+      </div>
+      <div class="video-frame">
+        <video controls playsinline preload="metadata" poster="">
+          <source src="video.mp4" type="video/mp4" />
+          مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
+        </video>
+      </div>
+      <p class="video-note">ویدئو با حفظ نسبت تصویر اصلی نمایش داده می‌شود.</p>
+    </section>
+
+    <footer>ساخته‌شده با عشق و کمی جادو <span>✦</span></footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
