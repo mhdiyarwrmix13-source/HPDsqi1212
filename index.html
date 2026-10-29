@@ -1,63 +1,100 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>یک روز خاص ✨</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
-  <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>یه پیام ویژه برای تو 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-  <main class="page">
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="locked">
+
+  <!-- پس‌زمینه -->
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+  <div class="rays" id="rays"></div>
+  <canvas id="snow"></canvas>
+  <div id="balloons"></div>
+  <div id="flash"></div>
+
+  <!-- ================= صحنه‌ی پاکت ================= -->
+  <section id="scene">
+    <div class="scene-glow"></div>
+    <p class="scene-title">یه نامه‌ی مخصوص برات رسیده 💌</p>
+
+    <div class="env-wrap" id="envWrap">
+      <div class="env" id="env">
+        <div class="env-back"></div>
+        <div class="letter"><span>💙</span>برای تو</div>
+        <div class="pocket p-left"></div>
+        <div class="pocket p-right"></div>
+        <div class="pocket p-bottom"></div>
+        <div class="flap"></div>
+        <div class="seal">❤</div>
+      </div>
+    </div>
+
+    <div class="hint" id="hint">برای باز کردن پاکت لمسش کن ✨</div>
+  </section>
+
+  <!-- ================= محتوای اصلی ================= -->
+  <main class="content" id="content">
+
+    <!-- عنوان (اینجا رو عوض کن) -->
     <header class="hero">
-      <div class="eyebrow"><span class="eyebrow-dot"></span> یک یادگاری برای یک روز خاص</div>
-      <h1>برای <span>تو</span> ✨</h1>
-      <p class="subtitle">بعضی لحظه‌ها ارزش این را دارند که برای همیشه نگه‌شان داریم.</p>
+      <h1 class="title" id="title" data-text="تولدت مبارک 🎉"></h1>
+      <p class="subtitle">یه پیام ویژه فقط برای تو</p>
+      <div class="divider"><span>❤</span></div>
     </header>
 
-    <!-- متن دلخواهت را فقط داخل تگ p زیر جایگزین کن -->
-    <section class="glass-card message-card">
-      <div class="card-heading">
-        <span class="heading-icon">✉</span>
-        <div>
-          <h2>چند کلمه از ته دل</h2>
-          <p>حرف‌هایی که دوست دارم بدانی...</p>
-        </div>
+    <!-- باکس متن (متنت رو داخل همین تگ بنویس) -->
+    <section class="card tilt">
+      <div class="card-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="card-label">پیام من</span></div>
+      <div class="message-text" id="messageText">
+سلام به تو که امروز روز توئه!
+اینجا می‌تونی هر متنی که دوست داری بنویسی.
+هر خطی که بنویسی همین‌طور نمایش داده می‌شه.
+این باکس حدود هفت خط جا داره و اگه متن
+بلندتر بشه، خودش اسکرول می‌خوره.
+امیدوارم سالی پر از شادی و موفقیت داشته باشی.
+دوستت دارم! ❤️
       </div>
-      <div class="message-content">
-        <p>
-          اینجا متن دلخواهت را بنویس. می‌توانی این نوشته را به یک پیام تبریک،
-          یک خاطره‌ی قشنگ یا هر حرفی که دوست داری تبدیل کنی.
-          برای اضافه یا کم کردن متن، فقط همین بخش را در فایل HTML ویرایش کن.
-        </p>
-      </div>
-      <div class="card-footer"><span>با کلی حس خوب</span><span class="sparkle">✦</span></div>
     </section>
 
-    <!-- نام فایل ویدئوت را در src قرار بده؛ مثلا videos/my-video.mp4 -->
-    <section class="glass-card video-card">
-      <div class="card-heading">
-        <span class="heading-icon">▶</span>
-        <div>
-          <h2>لحظه‌های ماندگار</h2>
-          <p>یک ویدئو برای مرور خاطره‌ها</p>
-        </div>
-      </div>
-      <div class="video-frame">
-        <video controls playsinline preload="metadata" poster="">
+    <!-- باکس ویدئو (اسم فایل ویدئوت رو در src بنویس) -->
+    <section class="card tilt">
+      <div class="card-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="card-label">ویدئوی ویژه</span></div>
+      <div class="video-wrap">
+        <video id="mainVideo" controls playsinline preload="metadata">
           <source src="video.mp4" type="video/mp4" />
-          مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
         </video>
+        <div class="video-placeholder" id="videoPlaceholder">
+          <span>🎬</span>
+          <p>فایل ویدئو رو با نام <b>video.mp4</b> کنار این فایل بذار</p>
+        </div>
       </div>
-      <p class="video-note">ویدئو با حفظ نسبت تصویر اصلی نمایش داده می‌شود.</p>
     </section>
 
-    <footer>ساخته‌شده با عشق و کمی جادو <span>✦</span></footer>
+    <nav class="toolbar">
+      <button class="btn" id="btnConfetti">🎉 جشن بگیر</button>
+      <button class="btn" id="btnBalloons">🎈 بادکنک</button>
+      <button class="btn on" id="btnSnow">❄️ برف</button>
+      <button class="btn" id="btnType">✨ تایپ دوباره</button>
+      <button class="btn" id="btnMusic">🎵 موزیک</button>
+      <button class="btn" id="btnFull">⛶ تمام‌صفحه</button>
+      <button class="btn" id="btnReplay">💌 پاکت دوباره</button>
+    </nav>
+
+    <footer class="foot">با ❤️ ساخته شده</footer>
   </main>
 
-  <script src="script.js"></script>
+  <canvas id="fx"></canvas>
+
+  <!-- موزیک اختیاری: فایل music.mp3 رو کنار این فایل بذار -->
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+<script src="script.js"></script>
 </body>
 </html>
