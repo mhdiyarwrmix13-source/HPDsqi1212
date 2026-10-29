@@ -2,9 +2,9 @@
    تنظیمات سریع
    ========================================================= */
 const CONFIG = {
-  snowCount: 110,          // تعداد گلوله‌های برف
+  snowCount: 45,          // تعداد گلوله‌های برف
   typingSpeed: 45,         // سرعت تایپ (میلی‌ثانیه)
-  mouseSparkles: true,     // جرقه دنبال ماوس
+  mouseSparkles: false,     // جرقه دنبال ماوس
   balloonCount: 7,
 };
 const $ = (s) => document.querySelector(s);
@@ -17,7 +17,7 @@ const snowC = $('#snow'), sctx = snowC.getContext('2d');
 const fxC = $('#fx'), fctx = fxC.getContext('2d');
 let W, H;
 function resize(){
-  const d = Math.min(devicePixelRatio || 1, 2);
+  const d = Math.min(devicePixelRatio || 1, 1.5);
   W = innerWidth; H = innerHeight;
   [snowC, fxC].forEach(c => { c.width = W * d; c.height = H * d; });
   sctx.setTransform(d,0,0,d,0,0); fctx.setTransform(d,0,0,d,0,0);
@@ -66,15 +66,15 @@ function confettiPiece(x,y,vx,vy){
   parts.push({t:'c',x,y,vx,vy,size:Math.random()*8+5,color:COLORS[Math.random()*COLORS.length|0],
     rot:Math.random()*6.28,vr:(Math.random()-.5)*.3,circle:Math.random()<.3,life:0,max:400});
 }
-function burst(x,y,n=120){
+function burst(x,y,n=65){
   for(let i=0;i<n;i++){const a=Math.random()*6.28,sp=Math.random()*10+4;confettiPiece(x,y,Math.cos(a)*sp,Math.sin(a)*sp-4);}
 }
-function rain(ms=1800){
+function rain(ms=900){
   const end = performance.now()+ms;
-  (function drop(){ for(let i=0;i<2;i++) confettiPiece(Math.random()*W,-20,(Math.random()-.5)*3,Math.random()*3+2);
+  (function drop(){ for(let i=0;i<1;i++) confettiPiece(Math.random()*W,-20,(Math.random()-.5)*3,Math.random()*3+2);
     if(performance.now()<end) requestAnimationFrame(drop); })();
 }
-function sparkle(x,y,n=60,spread=6){
+function sparkle(x,y,n=28,spread=4){
   for(let i=0;i<n;i++){
     const a=Math.random()*6.28,sp=Math.random()*spread+1;
     parts.push({t:'s',x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:Math.random()*3+1,
@@ -85,8 +85,8 @@ function ring(x,y){                              // موج نورانی
   parts.push({t:'r',x,y,r:10,life:0,max:50});
 }
 function celebrate(){
-  burst(W*.2,H*.6,35); burst(W*.8,H*.6,35);
-  setTimeout(()=>burst(W*.5,H*.4,55),250); rain();
+  burst(W*.2,H*.6,18); burst(W*.8,H*.6,18);
+  setTimeout(()=>burst(W*.5,H*.4,28),250); rain();
 }
 function drawFx(){
   fctx.clearRect(0,0,W,H);
@@ -116,12 +116,17 @@ function drawFx(){
   }
   fctx.globalAlpha=1;
 }
-(function loop(){ drawSnow(); drawFx(); requestAnimationFrame(loop); })();
+(function loop(){
+  if(snowOn) drawSnow();
+  if(parts.length) drawFx();
+  else fctx.clearRect(0,0,W,H);
+  requestAnimationFrame(loop);
+})();
 
 /* کلیک روی صفحه = انفجار کاغذ رنگی (بعد از باز شدن پاکت) */
 addEventListener('click', (e) => {
   if(!opened || e.target.closest('video,.btn')) return;
-  burst(e.clientX, e.clientY, 22);
+  burst(e.clientX, e.clientY, 10);
 });
 
 /* =========================================================
@@ -155,7 +160,7 @@ function openEnvelope(){
   setTimeout(() => {                                      // ۳) انفجار نور
     const c=envCenter();
     $('#flash').classList.add('go'); ring(c.x,c.y); 
-    sparkle(c.x,c.y,70,7); celebrate();
+    sparkle(c.x,c.y,32,5); celebrate();
     $('#rays').classList.add('show');
   }, 1900);
   setTimeout(() => {                                      // ۴) پاکت محو و محتوا ظاهر می‌شود
@@ -194,7 +199,7 @@ function spawnBalloon(){
   const b = document.createElement('div'), w = 45 + Math.random()*45;
   b.className = 'balloon';
   b.style.cssText = `left:${Math.random()*95}%;--w:${w}px;--c:${COLORS[Math.random()*(COLORS.length-1)|0]};--t:${11+Math.random()*9}s;--sx:${(Math.random()-.5)*120}px`;
-  b.addEventListener('click', (e) => { e.stopPropagation(); const r=b.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,18); sparkle(r.left+r.width/2,r.top+r.height/2,10,3); b.remove(); });
+  b.addEventListener('click', (e) => { e.stopPropagation(); const r=b.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,8); sparkle(r.left+r.width/2,r.top+r.height/2,5,2); b.remove(); });
   b.addEventListener('animationend', () => b.remove());
   balloonBox.appendChild(b);
 }
@@ -229,7 +234,7 @@ const video = $('#mainVideo'), ph = $('#videoPlaceholder');
 video.querySelector('source').addEventListener('error', () => ph.classList.add('show'));
 video.addEventListener('error', () => ph.classList.add('show'));
 video.addEventListener('loadeddata', () => ph.classList.remove('show'));
-video.addEventListener('play', () => { burst(W/2, H/2, 25); if(!music.paused){ music.pause(); btnMusic.classList.remove('on'); } });
+video.addEventListener('play', () => { burst(W/2, H/2, 8); if(!music.paused){ music.pause(); btnMusic.classList.remove('on'); } });
 
 /* =========================================================
    موزیک، برف، تمام‌صفحه، جشن
